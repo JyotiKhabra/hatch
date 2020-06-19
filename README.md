@@ -2,6 +2,8 @@
 
 A virtual travel planner website built with ReactJS and a Ruby on Rails back-end. 
 
+Follow this [link]() too see the back-end setup.
+
 ## Product Screenshots
 
 ## Setup
