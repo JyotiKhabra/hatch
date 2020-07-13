@@ -3,16 +3,14 @@ import classnames from 'classnames'
 import './Error.scss'
 
 export default function Error(props) {
-
   const errorClass = classnames('login-error', {
-    'login-error--enabled': props.valid,
-    'login-error--disabled': props.valid === false
+    'login-error--enabled': props.errorMessage.length > 0,
+    'login-error--disabled': props.errorMessage === ""
   })
 
   return (
     <span class={ errorClass }>
-      The email or password you entered is incorrect.<br/>
-      Please try again.
+      {props.errorMessage}
     </span>
   )
 }

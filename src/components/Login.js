@@ -17,36 +17,38 @@ function Login() {
     emptyPassword: false,
     emptyEmail: false,
   });
-  const [invalidCred, setInvalidCred] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [auth, setAuth] = useState(false);
 
+  // Initial retrieval of all userdata
   useEffect(() => {
     axios.get("/api/users").then((res) => {
       const formattedUsers = res.data.map((user) => user.user);
       setUsers(formattedUsers);
     });
   }, []);
-
+  // Validation for google logins
   const googleValidate = (response) => {
     let currentUser = users.filter((user) => user.email === response.profileObj.email);
     if (currentUser.length > 0) {
       Cookies.set('user', currentUser[0]);
-      setAuth(true);
+      setAuth(true); // redirect to dashboard
     }
   };
-
+// Validations for normal logins
   function validate() {
     if (email && password) {
       setErrors({ ...errors, emptyPassword: false, emptyEmail: false });
       let currentUser = users.filter((user) => user.email === email)[0];
       if (!currentUser || currentUser.password_digest !== password) {
-        console.log("We cant find an account with that email");
-        setInvalidCred(true);
+        setErrorMessage("We're sorry, the email or password seems to be incorrect.");
       } else {
+        setErrorMessage("")
         Cookies.set("user", currentUser);
         setAuth(true); // redirect to dashboard
       }
-    } else {
+    } else { 
+      // Error messages for invalid or absent form input
       if (!email && !password) {
         setErrors({ errors, emptyEmail: true, emptyPassword: true });
       } else {
@@ -59,7 +61,7 @@ function Login() {
       }
     }
   }
-
+  // Checks state of 'Auth' for successful login validation
   return auth ? (
     <Redirect to="/dashboard" />
   ) : (
@@ -67,7 +69,7 @@ function Login() {
       <div id="login-main">
         <Card>
           <img class="login-logo" src={HatchIcon} alt="logo" />
-          <Error valid={invalidCred} />
+          <Error errorMessage={errorMessage} />
           <form>
             <TextField
               id="standard-basic"

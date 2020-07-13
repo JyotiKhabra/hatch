@@ -1,8 +1,7 @@
 # hatch
 
 A virtual travel planner web application built with ReactJS and a Ruby on Rails back-end.
-
-## Product Screenshots
+Follow this [link](https://github.com/joeykishiuchi/hatchAPI) to see the back-end application set-up.
 
 ## Setup
 
