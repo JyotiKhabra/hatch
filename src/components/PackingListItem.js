@@ -33,7 +33,7 @@ export default function PackingListItem(props) {
         description: text,
         trip_id: props.trip_id,
         checked: status,
-        creator_name: props.creator_name
+        user_id: props.user.id
       },
     })
     .then(() => {
@@ -64,7 +64,7 @@ export default function PackingListItem(props) {
         description: text,
         trip_id: props.trip_id,
         checked: checked,
-        creator_name: user.name
+        user_id: user.id
       },
     }).then((res) => {
       props.getData();
@@ -80,7 +80,7 @@ export default function PackingListItem(props) {
         description: text,
         trip_id: props.trip_id,
         checked: checked,
-        creator_name: user.name
+        user_id: user.id
       },
     }).then((res) => {
       props.getData();
@@ -114,15 +114,20 @@ export default function PackingListItem(props) {
   }
  
   const avatarClass = classnames({
-    "avatar--blue": props.creator_name === "Joey Kishiuchi",
-    "avatar--orange": props.creator_name === "Stacey Keating", 
-    "avatar--green": props.creator_name === "Jyoti Khabra",
-    "avatar--default": !props.creator_name
+    "avatar--purple": props.user.avatar === "#6f5782",
+    "avatar--pink": props.user.avatar === "#d6b0d6",
+    "avatar--red": props.user.avatar === "#9e5454",
+    "avatar--light-blue": props.user.avatar === "#a7cdcf",
+    "avatar--orange": props.user.avatar === "#d1a773",
+    "avatar--yellow": props.user.avatar === "#e3e0ac", 
+    "avatar--green": props.user.avatar === "#74a381",
+    "avatar--blue": props.user.avatar === "#4a63b0",
+    "avatar--default": !props.user.avatar
   })
 
   return (
     <ListItem key={props.id} role={undefined} dense button>
-      <Avatar className={avatarClass}>{nameToInitial(props.creator_name)}</Avatar>
+      <Avatar className={avatarClass}>{nameToInitial(props.user.name)}</Avatar>
       <ListItemIcon class="list-item-icons">
         <Checkbox
           edge="start"

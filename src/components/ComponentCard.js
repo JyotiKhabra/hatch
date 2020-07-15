@@ -58,9 +58,12 @@ export default function ComponentCard(props) {
             />
           </Typography>
           {props.component.component_items.map((component_item) => {
+            const itemUser = props.users.filter(user => user.id === component_item.component_item.user_id);   
+            
             return (
               <ComponentItem
                 key={component_item.component_item.id}
+                user={itemUser[0]}
                 component_item={component_item.component_item}
                 component_id={props.component.component.component.id}
                 getData={props.getData}

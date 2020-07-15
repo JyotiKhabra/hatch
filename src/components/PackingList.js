@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import PackingListItem from "./PackingListItem";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -10,7 +11,7 @@ import Cookies from "js-cookie"
 export default function PackingList(props) {
   const [newItem, setNewItem] = useState(false);
 
-  const user = JSON.parse(Cookies.get('user'));
+  const activeUser = JSON.parse(Cookies.get('user'));
 
   const addPackingListItem = () => {
     setNewItem(true);
@@ -21,7 +22,7 @@ export default function PackingList(props) {
       trip_id={props.tripID}
       setNewItem={setNewItem}
       getData={props.getData}
-      creator_name={user.name}
+      user={activeUser}
     />
   ) : null;
 
@@ -37,6 +38,8 @@ export default function PackingList(props) {
           <div>
             {/* Shows all packing list items */}
             {props.packingList.map((item) => {
+              const itemUser = props.users.filter(user => user.id === item.packing_item.user_id);
+              
               return (
                 <PackingListItem
                   key={item.packing_item.id}
@@ -46,7 +49,7 @@ export default function PackingList(props) {
                   trip_id={props.tripID}
                   setNewItem={setNewItem}
                   getData={props.getData}
-                  creator_name={item.packing_item.creator_name}
+                  user={itemUser[0]}
                 />
               );
             })}

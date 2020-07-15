@@ -15,6 +15,9 @@ export default function HomeProfileButton() {
         <Button a href="/login" variant="outlined">
           Login
         </Button>
+        <Button a href="/signup" variant="outlined">
+          Sign-up
+        </Button>
       </div>
     </div>
   );

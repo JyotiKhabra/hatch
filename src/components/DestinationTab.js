@@ -32,6 +32,7 @@ export default function Destination(props) {
               component={component}
               getData={props.getData}
               destination_id={props.destination.destination.id}
+              users={props.users}
             />
           );
         })}

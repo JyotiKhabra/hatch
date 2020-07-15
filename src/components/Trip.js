@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useVisualMode from "../hooks/useVisualMode.js";
 import Nav from "./Nav";
 import Map from "./Map";
@@ -12,14 +12,26 @@ import Cookies from "js-cookie";
 import DestinationTab from "./DestinationTab";
 import { Redirect } from "react-router-dom";
 import useAppData from "../hooks/useAppData.js";
+import axios from 'axios';
+
 
 export default function Trip(props) {
   const { state, loaded, getData } = useAppData(props.match.params.id);
   const [modes] = useState({ MAIN: "MAIN" });
+  const [users, setUsers] = useState([]);
 
   const { mode, transition } = useVisualMode("MAIN");
 
   const user = Cookies.get("user");
+
+  useEffect(() => {
+    axios
+    .get("/api/users")
+    .then((res) => {
+      const users = res.data.map((user) => user.user);
+      setUsers(users);
+    });
+  }, []);
 
   state.destinations.forEach((destination) => {
     modes[destination.destination.destination.name] = destination;
@@ -59,6 +71,7 @@ export default function Trip(props) {
                 getData={getData}
                 packingList={state.packingList}
                 tripID={props.match.params.id}
+                users={users}
               />
               <div id="map-box">
                 <Card>
@@ -77,6 +90,7 @@ export default function Trip(props) {
               getData={getData}
               destination={modes[dest].destination}
               components={modes[dest].components}
+              users={users}
             />
           );
         }

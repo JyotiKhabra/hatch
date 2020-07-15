@@ -1,14 +1,29 @@
 $mediumGray: #262626;
+.nav-container {
+  width: 100%;
+}
+
 .navbar {
   background-color: $mediumGray;
   height: 90px;
   display: inline-flex;
   color: white;
-  width: 100vw;
+  width: 100%;
   justify-content: space-between;
-  padding-left: 1em;
-  padding-top: 1em;
+  align-items: center;
+
+  .nav-link {
+    margin-right: 30px;
+    color: white;
+    font-weight: 500;
+    font-size: 1em;
+    letter-spacing: 2px;
+    border: 1px solid;
+    padding: 7px;
+    border-radius: 7px;
+  }
 }
+
 .navbar .right-menu {
   padding-right: 2em;
   .profile-icon {

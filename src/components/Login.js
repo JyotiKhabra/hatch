@@ -4,6 +4,7 @@ import axios from "axios";
 import { Redirect } from "react-router-dom";
 import { Button, TextField } from "@material-ui/core";
 import Error from "./Error";
+import Nav from "./Nav";
 import "./Login.scss";
 import Card from "@material-ui/core/Card";
 import Cookies from "js-cookie";
@@ -65,57 +66,60 @@ function Login() {
   return auth ? (
     <Redirect to="/dashboard" />
   ) : (
-    <div>
-      <div id="login-main">
-        <Card>
-          <img class="login-logo" src={HatchIcon} alt="logo" />
-          <Error errorMessage={errorMessage} />
-          <form>
-            <TextField
-              id="standard-basic"
-              className="login-input"
-              label="Email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              error={errors.emptyEmail}
-              helperText={
-                errors.emptyEmail ? "Please enter a valid email." : ""
-              }
+    <>
+      <Nav page="login"/>
+      <div>
+        <div id="login-main">
+          <Card>
+            <h3 class="login-title">Login</h3>
+            <Error errorMessage={errorMessage} />
+            <form>
+              <TextField
+                id="standard-basic"
+                className="login-input"
+                label="Email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                error={errors.emptyEmail}
+                helperText={
+                  errors.emptyEmail ? "Please enter a valid email." : ""
+                }
+              />
+              <TextField
+                id="standard-basic"
+                className="login-input"
+                label="Password"
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                error={errors.emptyPassword}
+                helperText={
+                  errors.emptyPassword ? "Please enter a valid password." : ""
+                }
+              />
+              <Button
+                className="login-submit"
+                color="primary"
+                variant="contained"
+                onClick={() => validate()}
+              >
+                Submit
+              </Button>
+            </form>
+            <span class="login-or">- OR -</span>
+            <GoogleLogin
+              className="google-login"
+              theme="dark"
+              clientId="570246861484-25ichbk39vud42a6n5innl8p99811kr9.apps.googleusercontent.com"
+              buttonText="Continue with Google"
+              onSuccess={googleValidate}
+              onFailure={googleValidate}
+              cookiePolicy={"single_host_origin"}
             />
-            <TextField
-              id="standard-basic"
-              className="login-input"
-              label="Password"
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              error={errors.emptyPassword}
-              helperText={
-                errors.emptyPassword ? "Please enter a valid password." : ""
-              }
-            />
-            <Button
-              className="login-submit"
-              color="primary"
-              variant="contained"
-              onClick={() => validate()}
-            >
-              Submit
-            </Button>
-          </form>
-          <span class="login-or">- OR -</span>
-          <GoogleLogin
-            className="google-login"
-            theme="dark"
-            clientId="570246861484-25ichbk39vud42a6n5innl8p99811kr9.apps.googleusercontent.com"
-            buttonText="Continue with Google"
-            onSuccess={googleValidate}
-            onFailure={googleValidate}
-            cookiePolicy={"single_host_origin"}
-          />
-        </Card>
+          </Card>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 export default Login;
