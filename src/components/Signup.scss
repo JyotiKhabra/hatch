@@ -7,7 +7,7 @@ $hatchError: #FF0000;
 #root {
   overflow: -moz-hidden-unscrollable;
 
-  #login-main {
+  #signup-main {
     width: 100vw;
     height: 100%;
     display: flex;
@@ -40,12 +40,12 @@ $hatchError: #FF0000;
       position: inherit;
     }
 
-    .login-title {
+    .signup-title {
       font-family: "Manrope", sans-serif;
       font-weight: 400;
       font-size: 2em;
       color: white;
-      margin: 0px auto 20px;
+      margin: 100px auto 20px;
     }
     .MuiFormLabel-root {
       font-size: 1.3em;
@@ -67,14 +67,14 @@ $hatchError: #FF0000;
     .MuiButton-containedPrimary {
       width: 300px;
     }
-    .login-submit {
+    .signup-submit {
       width: 300px;
       margin: 10px auto;
       border-radius: 50px;
       height: 50px;
       font-size: 17px;
     }
-    .login-or {
+    .signup-or {
       color: white;
       margin-top: 37px;
     }

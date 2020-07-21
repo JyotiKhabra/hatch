@@ -26,6 +26,8 @@ export default function Dashboard() {
 
   let user = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null;
 
+  console.log("USER",user);
+
   useEffect(() => {
     if (user) {
       axios

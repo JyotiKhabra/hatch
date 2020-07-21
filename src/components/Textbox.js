@@ -31,7 +31,7 @@ function Textbox(props) {
         title: Object.keys(place).length > 0 ? place.description : title,
         description: description,
         component_id: props.component_id,
-        creator_name: user.name,
+        user_id: user.id,
         place_id: place.place_id
       }
     })

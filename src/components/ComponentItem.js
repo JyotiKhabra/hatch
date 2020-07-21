@@ -73,10 +73,16 @@ export default function ComponentItem(props) {
   }
 
   const avatarClass = classnames({
-    "avatar--blue": props.component_item.creator_name === "Joey Kishiuchi",
-    "avatar--orange": props.component_item.creator_name === "Stacey Keating",
-    "avatar--green": props.component_item.creator_name === "Jyoti Khabra",
-  });
+    "avatar--purple": props.user.avatar === "#6f5782",
+    "avatar--pink": props.user.avatar === "#d6b0d6",
+    "avatar--red": props.user.avatar === "#9e5454",
+    "avatar--light-blue": props.user.avatar === "#a7cdcf",
+    "avatar--orange": props.user.avatar === "#d1a773",
+    "avatar--yellow": props.user.avatar === "#e3e0ac", 
+    "avatar--green": props.user.avatar === "#74a381",
+    "avatar--blue": props.user.avatar === "#4a63b0",
+    "avatar--default": !props.user.avatar
+  })
 
   return (
     <div className={classes.root}>
@@ -87,7 +93,7 @@ export default function ComponentItem(props) {
           id="panel1a-header"
         >
           <Avatar className={avatarClass}>
-            {nameToInitial(props.component_item.creator_name)}
+            {nameToInitial(props.user.name)}
           </Avatar>
           <ListItemText primary={props.component_item.title} />
         </ExpansionPanelSummary>

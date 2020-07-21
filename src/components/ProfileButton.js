@@ -9,7 +9,8 @@ import Cookies from "js-cookie";
 import { useHistory } from "react-router-dom";
 
 export default function ProfileButton() {
-  const name = JSON.parse(Cookies.get("user")).name.split(" ")[0];
+  const user = JSON.parse(Cookies.get("user"));
+  const name = user.name.split(" ")[0];
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   let history = useHistory();
@@ -44,7 +45,9 @@ export default function ProfileButton() {
             onClick={handleMenu}
             color="inherit"
           >
-            <AccountCircle />
+            <AccountCircle 
+              style={{ color: user.avatar }}
+            />
             <h2>{name}</h2>
           </IconButton>
 

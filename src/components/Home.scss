@@ -4,6 +4,10 @@ $lightGrey: #1f1f1f;
 $hatchBlue: #63aba5;
 $hatchError: #a14061;
 
+#root {
+  overflow: hidden;
+}
+
 #home-page {
   display: flex;
   flex-direction: column;
