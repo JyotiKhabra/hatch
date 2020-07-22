@@ -8,8 +8,6 @@ export default function Nav(props) {
   const user = Cookies.get("user");
 
   function navMode() {
-    console.log("Called navMode");
-    
     if (user) {
       return <ProfileButton />
     } else {

@@ -106,28 +106,32 @@ export default function PackingListItem(props) {
   }
 
   function nameToInitial(name) {
-    if (name) {
-      const split = name.split(" ")[0].charAt(0) + name.split(" ")[1].charAt(0)
-      return split;
-    }
-    return 'H';
+    const firstInitial = name.split(" ")[0].charAt(0);
+    const secondInitial = name.split(" ")[1] ? name.split(" ")[1].charAt(0) : '';
+    return firstInitial + secondInitial;
   }
  
-  const avatarClass = classnames({
-    "avatar--purple": props.user.avatar === "#6f5782",
-    "avatar--pink": props.user.avatar === "#d6b0d6",
-    "avatar--red": props.user.avatar === "#9e5454",
-    "avatar--light-blue": props.user.avatar === "#a7cdcf",
-    "avatar--orange": props.user.avatar === "#d1a773",
-    "avatar--yellow": props.user.avatar === "#e3e0ac", 
-    "avatar--green": props.user.avatar === "#74a381",
-    "avatar--blue": props.user.avatar === "#4a63b0",
-    "avatar--default": !props.user.avatar
-  })
+  const avatarClass = () => {
+    console.log(props.user)
+    if (!props.user) {
+      return "avatar--default";
+    } else {
+      return classnames({
+        "avatar--purple": props.user.avatar === "#6f5782",
+        "avatar--pink": props.user.avatar === "#d6b0d6",
+        "avatar--red": props.user.avatar === "#9e5454",
+        "avatar--light_blue": props.user.avatar === "#a7cdcf",
+        "avatar--orange": props.user.avatar === "#d1a773",
+        "avatar--yellow": props.user.avatar === "#e3e0ac",
+        "avatar--green": props.user.avatar === "#74a381",
+        "avatar--blue": props.user.avatar === "#4a63b0"
+      })
+    }
+  }
 
   return (
     <ListItem key={props.id} role={undefined} dense button>
-      <Avatar className={avatarClass}>{nameToInitial(props.user.name)}</Avatar>
+      <Avatar className={avatarClass()}>{props.user ? nameToInitial(props.user.name) : 'H'}</Avatar>
       <ListItemIcon class="list-item-icons">
         <Checkbox
           edge="start"

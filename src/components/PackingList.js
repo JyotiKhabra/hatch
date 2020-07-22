@@ -34,12 +34,10 @@ export default function PackingList(props) {
             Packing List
             <AddCircleIcon onClick={() => addPackingListItem()} />
           </Typography>
-
           <div>
             {/* Shows all packing list items */}
             {props.packingList.map((item) => {
               const itemUser = props.users.filter(user => user.id === item.packing_item.user_id);
-              
               return (
                 <PackingListItem
                   key={item.packing_item.id}
