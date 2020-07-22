@@ -76,7 +76,7 @@ export default function ComponentItem(props) {
     "avatar--purple": props.user.avatar === "#6f5782",
     "avatar--pink": props.user.avatar === "#d6b0d6",
     "avatar--red": props.user.avatar === "#9e5454",
-    "avatar--light-blue": props.user.avatar === "#a7cdcf",
+    "avatar--light_blue": props.user.avatar === "#a7cdcf",
     "avatar--orange": props.user.avatar === "#d1a773",
     "avatar--yellow": props.user.avatar === "#e3e0ac", 
     "avatar--green": props.user.avatar === "#74a381",
