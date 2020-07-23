@@ -3,11 +3,14 @@ import axios from "axios";
 import "./UserSearch.scss";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { TextField } from "@material-ui/core";
+import Cookies from "js-cookie";
 
 export default function UserSearch(props) {
   const [users, setUsers] = useState([]);
   const [email, setEmail] = useState("");
   const [value, setValue] = useState([]);
+
+  const currentUser = JSON.parse(Cookies.get("user"));
 
   useEffect(() => {
     axios.get(`/api/users`)
@@ -19,12 +22,24 @@ export default function UserSearch(props) {
     });
   }, []);
 
+  function filteredOptions() {
+    let filteredUsers = users.filter(user => user.id !== currentUser.id);
+  
+    if (props.collaborators.length > 0) {
+      props.collaborators.map(collaborator => {
+        filteredUsers = filteredUsers.filter(user => user.id !== collaborator.id)
+      })
+    }
+    
+    return filteredUsers;
+  }
+
   return (
     <section className="search">
       <Autocomplete
         multiple
         id="tags-standard"
-        options={users}
+        options={filteredOptions()}
         getOptionLabel={(user) => user.name}
         defaultValue={users}
         value={value}

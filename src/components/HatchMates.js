@@ -65,7 +65,7 @@ export default function HatchMates(props) {
 
   const searchBar = search ? (
     <div id="hatch-search">
-      <UserSearch setCollaborators={setCollaborators} />
+      <UserSearch setCollaborators={setCollaborators} collaborators={collaborators.concat(props.collaborators)}/>
       <CheckIcon onClick={() => onSubmit()} />
       <CloseIcon onClick={() => setSearch(false)} />
     </div>

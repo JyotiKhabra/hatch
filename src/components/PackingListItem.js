@@ -112,7 +112,6 @@ export default function PackingListItem(props) {
   }
  
   const avatarClass = () => {
-    console.log(props.user)
     if (!props.user) {
       return "avatar--default";
     } else {
