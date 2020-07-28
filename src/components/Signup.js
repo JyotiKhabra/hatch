@@ -31,28 +31,38 @@ export default function Signup() {
   const [confirmPWMatch, setConfirmPWMatch] = useState(false);
   const [auth, setAuth] = useState(false);
 
-  useEffect(() => {
-    axios.get("/api/users").then((res) => {
-      const formattedUsers = res.data.map((user) => user.user);
-      setUsers(formattedUsers);
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get("/api/users").then((res) => {
+  //     const formattedUsers = res.data.map((user) => user.user);
+  //     setUsers(formattedUsers);
+  //   });
+  // }, []);
 
-  function validateEmail() {
-    const emailExists = users.filter(user => user.email === email.toLowerCase())
-    if (emailExists.length > 0) {
-      setError({
-        name: false,
-        email: true,
-        password: false,
-        confirmPassword: false
-      })
-      setInvalidEmail(true);
-    } else {
-      return true;
-    }
-    return false;
-  }
+  // function validateEmail() {
+  //   // const emailExists = users.filter(user => user.email === email.toLowerCase())
+  //   axios("/auth/users",{
+  //     method: 'POST',
+  //     header: {"Content-Type": "application/json"},
+  //     data: {
+  //       name: name,
+  //       email: email,
+  //       password: password,
+  //       avatar: randomAvatar()
+  //     }
+  //   })
+  //   if (emailExists.length > 0) {
+  //     setError({
+  //       name: false,
+  //       email: true,
+  //       password: false,
+  //       confirmPassword: false
+  //     })
+  //     setInvalidEmail(true);
+  //   } else {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   function validatePassword() {
     if (password.length < 8) {
@@ -102,23 +112,49 @@ export default function Signup() {
         password: false,
         confirmPassword: false
       });
-      if(validateEmail() && validatePassword()) {
-        // Successful signup path
-        axios({
-          method: "POST",
-          url: "/api/users",
+      if(validatePassword()) {
+        axios("/auth/users",{
+          method: 'POST',
+          header: {"Content-Type": "application/json"},
           data: {
             name: name,
             email: email,
-            password_digest: password,
+            password: password,
             avatar: randomAvatar()
           }
         })
         .then(res => {
-          Cookies.set("user", res.data.user);
-          setAuth(true);
+          console.log(res.data);
+          if (!res.data.error) {
+            Cookies.set("user_session", res.data.user_session);
+            setAuth(true);
+          } else {
+            setError({
+              name: false,
+              email: true,
+              password: false,
+              confirmPassword: false
+            })
+            setInvalidEmail(true);
+          }
         })
-        .catch(err => console.log(err));
+        // Successful signup path
+      //   axios({
+      //     method: "POST",
+      //     url: "/api/users",
+      //     data: {
+      //       name: name,
+      //       email: email,
+      //       password_digest: password,
+      //       avatar: randomAvatar()
+      //     }
+      //   })
+      //   .then(res => {
+      //     Cookies.set("user", res.data.user);
+      //     setAuth(true);
+      //   })
+      //   .catch(err => console.log(err));
+      // }
       }
     }
   }
