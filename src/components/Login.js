@@ -8,10 +8,11 @@ import Nav from "./Nav";
 import "./Login.scss";
 import Card from "@material-ui/core/Card";
 import Cookies from "js-cookie";
-import HatchIcon from "./images/hatch-main-logo.png";
+import useUserData from "../hooks/useUserData";
 
 function Login() {
-  const [users, setUsers] = useState([]);
+  const {user, getUser} = useUserData()
+ // const [users, setUsers] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({
@@ -29,13 +30,13 @@ function Login() {
   //   });
   // }, []);
   // Validation for google logins
-  const googleValidate = (response) => {
-    let currentUser = users.filter((user) => user.email === response.profileObj.email);
-    if (currentUser.length > 0) {
-      Cookies.set('user', currentUser[0]);
-      setAuth(true); // redirect to dashboard
-    }
-  };
+  // const googleValidate = (response) => {
+  //   let currentUser = users.filter((user) => user.email === response.profileObj.email);
+  //   if (currentUser.length > 0) {
+  //     Cookies.set('user', currentUser[0]);
+  //     setAuth(true); // redirect to dashboard
+  //   }
+  // };
 // Validations for normal logins
   function validate() {
     if (email && password) {
@@ -49,10 +50,12 @@ function Login() {
         }
       })
       .then(res => {
-        console.log(res.data);
+        console.log('res', res.data.user.name);
         if (!res.data.status) {
           setErrorMessage("")
           Cookies.set("user_session", res.data.session_token);
+          getUser(res.data.session_token);
+          console.log('wee');
           setAuth(true);
         } else {
           setErrorMessage("We're sorry, the email or password seems to be incorrect.");

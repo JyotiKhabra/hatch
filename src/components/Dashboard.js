@@ -24,8 +24,8 @@ export default function Dashboard() {
     className: "Photos",
   };
 
-  const user_session = JSON.parse(Cookies.get("user_session"));
-  console.log(user_session);
+  const user_session = Cookies.get("user_session");
+  console.log('user session', user_session);
   useEffect(() => {
     
     console.log(user_session);
@@ -71,7 +71,7 @@ export default function Dashboard() {
     <Redirect to="/login" />
   ) : (
     <>
-      {/* <Nav /> */}
+      <Nav />
       <div id="dash">
         <div class="dashboard-label"></div>
 
