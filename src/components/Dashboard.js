@@ -27,12 +27,13 @@ export default function Dashboard() {
   const user_session = Cookies.get("user_session");
   console.log('user session', user_session);
   useEffect(() => {
-    
+
     console.log(user_session);
     if (user_session) {
       axios
-        .get(`/api/user/1`)
+        .get(`/api/users/1`)
         .then((res) => {
+          console.log("usertripinfo",res)
           setTrips(res.data)
         })
         .catch((err) => {

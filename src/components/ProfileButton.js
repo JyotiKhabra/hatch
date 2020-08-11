@@ -7,20 +7,20 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Cookies from "js-cookie";
 import { useHistory } from "react-router-dom";
-import useUserData from "../hooks/useUserData";
 
 
-export default function ProfileButton() {
-  const {user, getUser} = useUserData()
+export default function ProfileButton({user}) {
+  // const {user, getUser} = useUserData()
   const [name, setName] = useState("")
  // const user = JSON.parse(Cookies.get("user"));
+
 
  function getUsername() {
    console.log('getusernameuser', user.name)
    if (!user) {
      return "";
-   } else 
-    return user.name.split(" ")[0];
+   } else
+    return user.split(" ")[0];
  }
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -56,10 +56,10 @@ export default function ProfileButton() {
             onClick={handleMenu}
             color="inherit"
           >
-            <AccountCircle 
+            <AccountCircle
               style={{ color: user.avatar }}
             />
-            <h2>{getUsername}</h2>
+            <h2>{getUsername()}</h2>
           </IconButton>
 
           <Menu

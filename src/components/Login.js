@@ -8,10 +8,8 @@ import Nav from "./Nav";
 import "./Login.scss";
 import Card from "@material-ui/core/Card";
 import Cookies from "js-cookie";
-import useUserData from "../hooks/useUserData";
 
 function Login() {
-  const {user, setUser} = useUserData()
  // const [users, setUsers] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -54,8 +52,11 @@ function Login() {
         if (!res.data.status) {
           setErrorMessage("")
           Cookies.set("user_session", res.data.session_token);
-          setUser(res.data.user)
-          console.log('wee');
+          localStorage.setItem("userName", res.data.user.name);
+          localStorage.setItem("userId", res.data.user.id);
+          localStorage.setItem("userAvatar", res.data.user.avatar);
+          localStorage.setItem("userEmail", res.data.user.email);
+
           setAuth(true);
         } else {
           setErrorMessage("We're sorry, the email or password seems to be incorrect.");
@@ -69,7 +70,7 @@ function Login() {
       //   Cookies.set("user", currentUser);
       //   setAuth(true); // redirect to dashboard
       // }
-    } else { 
+    } else {
       // Error messages for invalid or absent form input
       if (!email && !password) {
         setErrors({ errors, emptyEmail: true, emptyPassword: true });
