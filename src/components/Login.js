@@ -22,12 +22,12 @@ function Login() {
   const [auth, setAuth] = useState(false);
 
   // Initial retrieval of all userdata
-  useEffect(() => {
-    axios.get("/api/users").then((res) => {
-      const formattedUsers = res.data.map((user) => user.user);
-      setUsers(formattedUsers);
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get("/api/users").then((res) => {
+  //     const formattedUsers = res.data.map((user) => user.user);
+  //     setUsers(formattedUsers);
+  //   });
+  // }, []);
   // Validation for google logins
   const googleValidate = (response) => {
     let currentUser = users.filter((user) => user.email === response.profileObj.email);
@@ -40,14 +40,32 @@ function Login() {
   function validate() {
     if (email && password) {
       setErrors({ ...errors, emptyPassword: false, emptyEmail: false });
-      let currentUser = users.filter((user) => user.email === email)[0];
-      if (!currentUser || currentUser.password_digest !== password) {
-        setErrorMessage("We're sorry, the email or password seems to be incorrect.");
-      } else {
-        setErrorMessage("")
-        Cookies.set("user", currentUser);
-        setAuth(true); // redirect to dashboard
-      }
+      axios("/auth/login",{
+        method: 'POST',
+        header: {"Content-Type": "application/json"},
+        data: {
+          email: email,
+          password: password
+        }
+      })
+      .then(res => {
+        console.log(res.data);
+        if (!res.data.status) {
+          setErrorMessage("")
+          Cookies.set("user_session", res.data.session_token);
+          setAuth(true);
+        } else {
+          setErrorMessage("We're sorry, the email or password seems to be incorrect.");
+        }
+      })
+      // let currentUser = users.filter((user) => user.email === email)[0];
+      // if (!currentUser || currentUser.password_digest !== password) {
+      //   setErrorMessage("We're sorry, the email or password seems to be incorrect.");
+      // } else {
+      //   setErrorMessage("")
+      //   Cookies.set("user", currentUser);
+      //   setAuth(true); // redirect to dashboard
+      // }
     } else { 
       // Error messages for invalid or absent form input
       if (!email && !password) {

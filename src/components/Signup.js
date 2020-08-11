@@ -11,7 +11,7 @@ import "./Signup.scss";
 
 export default function Signup() {
   // All current users in DB
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
   // State of input fields
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -124,7 +124,6 @@ export default function Signup() {
           }
         })
         .then(res => {
-          console.log(res.data);
           if (!res.data.error) {
             Cookies.set("user_session", res.data.user_session);
             setAuth(true);

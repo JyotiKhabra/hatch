@@ -24,19 +24,33 @@ export default function Dashboard() {
     className: "Photos",
   };
 
-  let user = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null;
-
+  const user_session = JSON.parse(Cookies.get("user_session"));
+  console.log(user_session);
   useEffect(() => {
-    if (user) {
+    
+    console.log(user_session);
+    if (user_session) {
       axios
-        .get(`/api/users/${user.id}`)
+        .get(`/api/user/1`)
         .then((res) => {
-          setTrips(res.data);
+          setTrips(res.data)
         })
         .catch((err) => {
-          console.log(err);
+          console.log("ERR",err);
         });
     }
+    // if (user_session) {
+    //   axios(`/auth/user/`,{
+    //     method: 'GET',
+    //     header: {'Authentication': `Token ${user_session}`}
+    //   })
+    //     .then((res) => {
+    //       console.log("RES:", res)
+    //     })
+    //     .catch((err) => {
+    //       console.log("ERR",err);
+    //     });
+    // }
   }, []);
 
   const formattedTrips =
@@ -53,11 +67,11 @@ export default function Dashboard() {
         ))
       : null;
 
-  return !user ? (
+  return !user_session ? (
     <Redirect to="/login" />
   ) : (
     <>
-      <Nav />
+      {/* <Nav /> */}
       <div id="dash">
         <div class="dashboard-label"></div>
 
