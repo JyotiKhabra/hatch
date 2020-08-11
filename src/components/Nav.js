@@ -7,11 +7,12 @@ import useUserData from "../hooks/useUserData";
 
 
 export default function Nav(props) {
-  const {user, getUser} = useUserData()
+  const {user, setUser} = useUserData()
 
 //  const user = Cookies.get("user");
 
   function navMode() {
+    console.log('userinnav', user.name)
     if (!user.name) 
       {
         if (props.page === 'login') {

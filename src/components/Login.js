@@ -11,7 +11,7 @@ import Cookies from "js-cookie";
 import useUserData from "../hooks/useUserData";
 
 function Login() {
-  const {user, getUser} = useUserData()
+  const {user, setUser} = useUserData()
  // const [users, setUsers] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -54,7 +54,7 @@ function Login() {
         if (!res.data.status) {
           setErrorMessage("")
           Cookies.set("user_session", res.data.session_token);
-          getUser(res.data.session_token);
+          setUser(res.data.user)
           console.log('wee');
           setAuth(true);
         } else {
@@ -128,7 +128,7 @@ function Login() {
               </Button>
             </form>
             <span class="login-or">- OR -</span>
-            <GoogleLogin
+            {/* <GoogleLogin
               className="google-login"
               theme="dark"
               clientId="570246861484-25ichbk39vud42a6n5innl8p99811kr9.apps.googleusercontent.com"
@@ -136,7 +136,7 @@ function Login() {
               onSuccess={googleValidate}
               onFailure={googleValidate}
               cookiePolicy={"single_host_origin"}
-            />
+            /> */}
           </Card>
         </div>
       </div>
