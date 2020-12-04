@@ -1,17 +1,10 @@
 # hatch
 
 A virtual travel planner web application built with ReactJS and a Ruby on Rails back-end.
-<<<<<<< HEAD
 
-Follow this [link]() too see the back-end setup.
-
-## Product Screenshots
-=======
 Follow this [link](https://github.com/joeykishiuchi/hatchAPI) to see the back-end application set-up.
->>>>>>> b2fc08bd87e10c379806b6e02ddc7c15b715c5b6
 
 ## Setup
-
 1. Run 'npm install' to install dependencies.
 2. Create .env.development file based on .env.development.example
 3. Run 'npm start'
